@@ -7,7 +7,7 @@ import threading
 import random
 import sys
 import select
- 
+
 
 
 
@@ -77,6 +77,12 @@ def on_message(sid, data):
     print('Walk to another screen')
     nextOne()
 
+@sio.on('words')
+def on_message(sid, data):
+    tt=data["data"]
+    for i in ClientOnlineSid:
+        sio.emit('words', {'data': tt})
+    # print('Walk to another screen')
 
 @sio.on('client')
 def on_message(sid, data):

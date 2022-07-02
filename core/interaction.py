@@ -24,8 +24,9 @@ def Qadd(qI):
     queueA.put(qI)
     print("queue size####################################################",queueA.qsize())
 
-    
 
+def start_getsture():
+    pass
 
 def start_processes():
     # cli.start()
@@ -40,10 +41,12 @@ def randomAct():
     t=random.randint(0, 8)
     # # t=0
     if(status.selected):
-        if(t>4):
-            Qadd(actions.walk(direction=0))
-        else:
-            Qadd(actions.walk(direction=1))
+        Qadd(actions.board(text=str(random.randint(1, 100))))
+
+        # if(t>4):
+        #     Qadd(actions.walk(direction=0))
+        # else:
+        #     Qadd(actions.walk(direction=1))
 
 
         # # if t>1:

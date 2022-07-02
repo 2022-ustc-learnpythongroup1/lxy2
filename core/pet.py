@@ -131,7 +131,8 @@ class DesktopPet(QMainWindow):
             painter.drawPixmap(self.rect(), self.pix)
             # t=QPixmap(str(self.imgDir / settings.MOUSE_TO_RIGHT_2))
             # painter.drawPixmap(self.rect(),t)
-            painter.drawText(10,100,status.boardText)#here in place of vegitables i want to print the my filenames
+            if(self.curAction.actionName=="board"):
+                painter.drawText(25,105,status.boardText)#here in place of vegitables i want to print the my filenames
 
             
     def setPix(self, pix):

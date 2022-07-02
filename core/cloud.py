@@ -54,7 +54,10 @@ class client():
         elif (data['selected']=='0'):
             myreleased()
             
-
+    @sio.on('words')
+    def on_message(data):
+        print('Client get words:',data)
+        status.boardText=data["data"]
 
 
     @sio.event
@@ -72,13 +75,17 @@ class client():
     def start(self):
         if(not sio.connected):
             try:
-                sio.connect('http://localhost:5000')
+                sio.connect('http://124.223.84.162:5000')
             except BaseException as e:
                 mydisconnected()   
 
     def get_out(self):
         if(sio.connected):
             sio.emit('out', {'data': ""})        
+
+    def update_words(self):
+        if(sio.connected):
+            sio.emit('words', {'data': status.boardText})    
         # while True:
         #     try:
         #         sio.connect('http://localhost:5000')

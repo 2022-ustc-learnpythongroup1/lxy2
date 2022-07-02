@@ -303,15 +303,39 @@ class boring(ActionItem):
         self.finishedAct()
 
 
+
+
+# class rotation(ActionItem):
+#     curFrame=0
+#     def __init__(self,T_INTERVAL=500,priority=0):
+#         super(board, self).__init__(T_INTERVAL=400,actionName="board",priority=priority)
+#         self.IsInterrupt = False
+#         self.acceptMove=True
+#         self.Move_able=True
+#         self.acceptClick=True
+#         self.Interupt_able=True
+
+#     def Clicked(self,bt=None):
+#         self.finishedAct()
+
+
+
 class board(ActionItem):
     curFrame=0
-    def __init__(self,T_INTERVAL=500,priority=0):
+    def __init__(self,T_INTERVAL=500,priority=0,text="hello"):
         super(board, self).__init__(T_INTERVAL=400,actionName="board",priority=priority)
+        self.text=text
         self.IsInterrupt = False
         self.acceptMove=True
         self.Move_able=True
         self.acceptClick=True
         self.Interupt_able=True
+
+    def init(self, Father):
+        status.boardText=self.text
+        self.father=Father
+        self.father.TIME_INTERVAL=self.TIME_INTERVAL
+        self.finished=False
 
     def Clicked(self,bt=None):
         self.finishedAct()
@@ -330,9 +354,34 @@ class hide(ActionItem):
         if(status.selected):
             rect = self.father.desktop.availableGeometry()
             if(t==0):
-                self.father.move(self.father.desktop.availableGeometry().bottomRight().x()-5,self.father.pos().y())
+                self.father.move(self.father.desktop.availableGeometry().bottomRight().x()-int(settings.SELF_SIZE/2),self.father.pos().y())
             else:
-                self.father.move(-settings.SELF_SIZE,self.father.pos().y()+5)
+                self.father.move(-int(settings.SELF_SIZE/2),self.father.pos().y()+5)
+            print("##############",self.father.pos().x())
+            # queueA.put(walk(direction=t,priority=900))
+            self.finishedAct()
+        self.father.setPix(self.ACTList[0])
+        # else:
+            # self.finishedAct()
+
+
+class snail(ActionItem):
+    curFrame=0
+    def __init__(self,T_INTERVAL=1000,priority=1000):
+        super(hide, self).__init__(T_INTERVAL=1000,actionName="hide",priority=priority)
+        self.IsInterrupt = True
+        self.Interupt_able=False
+
+    
+    def nextAct(self):
+        print("---hide---")
+        t=random.randint(0, 2)
+        if(status.selected):
+            rect = self.father.desktop.availableGeometry()
+            if(t==0):
+                self.father.move(self.father.desktop.availableGeometry().bottomRight().x()-int(settings.SELF_SIZE/2),self.father.pos().y())
+            else:
+                self.father.move(-int(settings.SELF_SIZE/2),self.father.pos().y()+5)
             print("##############",self.father.pos().x())
             # queueA.put(walk(direction=t,priority=900))
             self.finishedAct()

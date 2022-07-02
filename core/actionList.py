@@ -31,3 +31,6 @@ boardtime = [5,5]
 
 hide = ["hide.png"]
 hidetime = [5]
+
+snail=["snail.png"]
+snailtime=[5]
