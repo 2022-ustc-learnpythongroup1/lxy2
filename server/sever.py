@@ -84,6 +84,14 @@ def on_message(sid, data):
         sio.emit('words', {'data': tt})
     # print('Walk to another screen')
 
+@sio.on('summon')
+def on_message(sid, data):
+    curClientSid=sid
+    GlobalEmit()
+
+    # print('Walk to another screen')
+
+
 @sio.on('client')
 def on_message(sid, data):
     print('I received a message!', data)

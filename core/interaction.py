@@ -1,5 +1,6 @@
 from multiprocessing import Process,Queue
 from queue import Empty
+import threading
 import os
 import time
 import random
@@ -7,7 +8,8 @@ from core import actions
 from core.act_queue import q as queueA
 from core.cloud import cli
 from core import status
-
+from extent import weather
+from extent import gesture
 # from core.cloud import connected as WEB_CONNECTED
 # from core.cloud import chosen as WEB_CHOSEN
 
@@ -24,16 +26,25 @@ def Qadd(qI):
     queueA.put(qI)
     print("queue size####################################################",queueA.qsize())
 
+def start_getweather():
+    myweather = threading.Thread(target=weather.get_weather)
+    myweather.daemon=True
+    myweather.start()
 
 def start_getsture():
-    pass
+    mygetsture = threading.Thread(target=gesture.detect)
+    mygetsture.daemon=True
+    mygetsture.start()
+    
+def start_facedetect():
+    myfacedetect = threading.Thread(target=face.start_facedetect)
+    myfacedetect.daemon=True
+    myfacedetect.start()
 
 def start_processes():
-    # cli.start()
-    # print("start processes")
-    # cloudcli = Process(target=cli.start, args=())
-    # cloudcli.daemon=True
-    # cloudcli.start()
+    start_getweather()
+    # start_facedetect()
+
     pass
     
 def randomAct():
@@ -41,7 +52,10 @@ def randomAct():
     t=random.randint(0, 8)
     # # t=0
     if(status.selected):
-        Qadd(actions.board(text=str(random.randint(1, 100))))
+        # Qadd(actions.snail())
+        Qadd(actions.stand())
+
+        # Qadd(actions.board(text=str(status.weather)))
 
         # if(t>4):
         #     Qadd(actions.walk(direction=0))

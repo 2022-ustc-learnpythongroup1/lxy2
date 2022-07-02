@@ -3,6 +3,7 @@ from core.conf import settings
 from core import actionList 
 import core.status as status
 from core.cloud import cli
+from core.act_queue import q as queueA
 # from core.act_queue import q as queueA
 import random
 
@@ -368,23 +369,13 @@ class hide(ActionItem):
 class snail(ActionItem):
     curFrame=0
     def __init__(self,T_INTERVAL=1000,priority=1000):
-        super(hide, self).__init__(T_INTERVAL=1000,actionName="hide",priority=priority)
+        super(snail, self).__init__(T_INTERVAL=1000,actionName="snail",priority=priority)
         self.IsInterrupt = True
         self.Interupt_able=False
 
-    
     def nextAct(self):
-        print("---hide---")
-        t=random.randint(0, 2)
-        if(status.selected):
-            rect = self.father.desktop.availableGeometry()
-            if(t==0):
-                self.father.move(self.father.desktop.availableGeometry().bottomRight().x()-int(settings.SELF_SIZE/2),self.father.pos().y())
-            else:
-                self.father.move(-int(settings.SELF_SIZE/2),self.father.pos().y()+5)
-            print("##############",self.father.pos().x())
-            # queueA.put(walk(direction=t,priority=900))
+        print("---snail---")
+        if(status.facechecked):
+            status.facechecked_flag=True
             self.finishedAct()
-        self.father.setPix(self.ACTList[0])
-        # else:
-            # self.finishedAct()
+        self.father.setPix("snail")

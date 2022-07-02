@@ -15,6 +15,7 @@ from core.actions import Action
 from core import settings
 
 interaction.start_processes()
+
 q = queue.PriorityQueue()
 
 if __name__ == '__main__':
@@ -27,7 +28,7 @@ class DesktopPet(QMainWindow):
     """桌宠核心类"""
 
 
-    curAction=actions.fallingBody()
+    curAction=actions.snail()
     TIME_INTERVAL=500
     draging = False
 
@@ -38,7 +39,7 @@ class DesktopPet(QMainWindow):
         self.autoFalling = False
         self.tray = tray
         #生成当前动作
-        self.curAction=actions.fallingBody()
+        self.curAction=actions.snail()
         self.curAction.init(self)
         self.initUI()
         self.WakeUp()
@@ -191,6 +192,9 @@ class DesktopPet(QMainWindow):
         if(status.selected==False and self.curAction.actionName!="hide" and status.flag):
             q.put(actions.hide())
             status.flag=False
+        if(status.facechecked_flag==True):
+            status.facechecked_flag=False
+            interaction.start_getsture()
 
 
 

@@ -5,7 +5,7 @@ connected=False
 #text on the board 8个英文字符 五个中文
 boardText="一二三四五"
 
-city=""
-temperature=""
+weather=""
 
-facechecked=False
+facechecked=True
+facechecked_flag=True

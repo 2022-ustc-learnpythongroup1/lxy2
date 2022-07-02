@@ -83,6 +83,11 @@ class client():
         if(sio.connected):
             sio.emit('out', {'data': ""})        
 
+    def summon(self):
+        print("SUMMON")
+        if(sio.connected):
+            sio.emit('summon', {'data': "summon"})    
+            
     def update_words(self):
         if(sio.connected):
             sio.emit('words', {'data': status.boardText})    
