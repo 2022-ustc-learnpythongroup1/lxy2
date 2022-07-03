@@ -1,2 +1,2 @@
-gevent_socketio==0.3.6
-PyQt5==5.15.7
+python_socketio
+PyQt5

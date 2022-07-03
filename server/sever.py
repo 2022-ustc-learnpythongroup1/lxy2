@@ -142,7 +142,7 @@ def getinput():
 if __name__ == '__main__':
     wst = threading.Thread(target=serve_app, args=(sio,app))
     wst.daemon =  False
-    wst.start()
+    wst.start() 
 
     thr2=threading.Thread(target=getinput)
     thr2.daemon=  False
